@@ -1,11 +1,22 @@
-import React from 'react'
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Navbar from "./components/Navbar";
+import Home from "./pages/Home";
+import Test from "./pages/Test";
+import Result from "./pages/Result";
+import Login from "./pages/Login";
 
-const App = () => {
+function App() {
   return (
-    <div>
-      <h1 class="underline">PersonaSense - Application</h1>
-    </div>
-  )
+    <Router>
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/test" element={<Test />} />
+        <Route path="/result" element={<Result />} />
+        <Route path="/login" element={<Login />} />
+      </Routes>
+    </Router>
+  );
 }
 
-export default App
+export default App;
