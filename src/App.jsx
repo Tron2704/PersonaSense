@@ -4,6 +4,7 @@ import Home from "./pages/Home";
 import PersonalityTypes from "./pages/PersonalityTypes";
 import PersonalityDetail from "./pages/PersonalityDetail";
 import Test from "./pages/Test";
+import Result from "./pages/Result";
 
 export default function App() {
   return (
@@ -15,6 +16,7 @@ export default function App() {
           <Route path="/personality-types" element={<PersonalityTypes />} />
           <Route path="/personality/:id" element={<PersonalityDetail />} />
           <Route path="/test" element={<Test />} />
+          <Route path="/result" element={<Result />} />
         </Routes>
       </main>
     </div>
