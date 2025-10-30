@@ -1,22 +1,22 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
+import PersonalityTypes from "./pages/PersonalityTypes";
+import PersonalityDetail from "./pages/PersonalityDetail";
 import Test from "./pages/Test";
-import Result from "./pages/Result";
-import Login from "./pages/Login";
 
-function App() {
+export default function App() {
   return (
-    <Router>
+    <div className="min-h-screen bg-gray-950 text-gray-100">
       <Navbar />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/test" element={<Test />} />
-        <Route path="/result" element={<Result />} />
-        <Route path="/login" element={<Login />} />
-      </Routes>
-    </Router>
+      <main className="pt-20">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/personality-types" element={<PersonalityTypes />} />
+          <Route path="/personality/:id" element={<PersonalityDetail />} />
+          <Route path="/test" element={<Test />} />
+        </Routes>
+      </main>
+    </div>
   );
 }
-
-export default App;
