@@ -1,74 +1,62 @@
-// src/pages/Result.jsx
-import React from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export default function Result() {
-  const navigate = useNavigate();
   const location = useLocation();
+  const navigate = useNavigate();
 
-  // Retrieve result data passed from the Test page
-  const { resultData } = location.state || {};
+  const { userInfo, resultData } = location.state || {};
 
-  // Fallback if user directly opens /result without taking the test
-  if (!resultData) {
+  if (!userInfo || !resultData) {
     return (
-      <section className="min-h-screen flex flex-col justify-center items-center bg-gray-950 text-gray-100">
-        <div className="bg-gray-900/70 border border-gray-800 p-8 rounded-2xl shadow-xl text-center">
-          <h1 className="text-2xl font-bold text-blue-400 mb-4">
-            Oops! No Result Found 😅
-          </h1>
-          <p className="text-gray-400 mb-6">
-            Please complete the personality test before viewing your result.
-          </p>
-          <button
-            onClick={() => navigate("/test")}
-            className="px-6 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 transition text-white font-semibold"
-          >
-            Take the Test
-          </button>
-        </div>
+      <section className="min-h-screen flex flex-col items-center justify-center bg-gray-950 text-gray-100">
+        <p className="mb-4 text-gray-300">No data found. Please take the test again.</p>
+        <button
+          onClick={() => navigate("/test")}
+          className="px-6 py-2 bg-blue-600 hover:bg-blue-700 rounded-lg"
+        >
+          Retake Test
+        </button>
       </section>
     );
   }
 
-  // Destructure result data
-  const { personalityType, description, traits } = resultData;
-
   return (
-    <section className="min-h-screen flex flex-col justify-center items-center bg-gray-950 text-gray-100 px-4 py-10">
-      <div className="max-w-2xl w-full bg-gray-900/70 border border-gray-800 rounded-2xl shadow-xl p-8">
-        <h1 className="text-3xl font-bold text-blue-400 mb-4 text-center">
+    <section className="min-h-screen flex items-center justify-center bg-gray-950 text-gray-100 px-4 py-10">
+      <div className="max-w-2xl w-full bg-gray-900/70 rounded-2xl shadow-xl p-8 border border-gray-800">
+        <h1 className="text-3xl font-bold text-center text-blue-400 mb-6">
           Your Personality Result
         </h1>
 
-        <div className="text-center mb-6">
-          <h2 className="text-2xl font-semibold text-white mb-2">
-            {personalityType}
-          </h2>
-          <p className="text-gray-400">{description}</p>
+        {/* User Info */}
+        <div className="mb-8">
+          <h2 className="text-xl font-semibold mb-3 text-gray-300">Your Details</h2>
+          <div className="space-y-2 bg-gray-800/50 p-4 rounded-lg border border-gray-700">
+            <p><span className="text-blue-400 font-semibold">Name:</span> {userInfo.name}</p>
+            <p><span className="text-blue-400 font-semibold">Age:</span> {userInfo.age}</p>
+            <p><span className="text-blue-400 font-semibold">Gender:</span> {userInfo.gender}</p>
+          </div>
         </div>
 
-        <div className="bg-gray-800/70 p-5 rounded-lg mb-6">
-          <h3 className="text-lg font-semibold text-blue-300 mb-3">Key Traits:</h3>
-          <ul className="list-disc list-inside text-gray-300 space-y-1">
-            {traits.map((trait, index) => (
-              <li key={index}>{trait}</li>
-            ))}
-          </ul>
+        {/* Personality Result */}
+        <div>
+          <h2 className="text-xl font-semibold mb-3 text-gray-300">Personality Type</h2>
+          <div className="bg-gray-800/50 p-4 rounded-lg border border-gray-700 space-y-3">
+            <p className="text-2xl font-bold text-blue-400">{resultData.type}</p>
+            <p className="text-gray-300">{resultData.description}</p>
+            <ul className="list-disc list-inside text-gray-300">
+              {resultData.traits.map((trait, idx) => (
+                <li key={idx}>{trait}</li>
+              ))}
+            </ul>
+          </div>
         </div>
 
-        <div className="flex justify-center gap-4">
+        <div className="mt-8 flex justify-center">
           <button
-            onClick={() => navigate("/personality-types")}
-            className="px-6 py-2 rounded-lg bg-gray-800 hover:bg-gray-700 transition text-gray-200"
+            onClick={() => navigate("/")}
+            className="px-6 py-2 bg-blue-600 hover:bg-blue-700 rounded-lg"
           >
-            View All Types
-          </button>
-          <button
-            onClick={() => navigate("/test")}
-            className="px-6 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 transition text-white font-semibold"
-          >
-            Retake Test
+            Back to Home
           </button>
         </div>
       </div>

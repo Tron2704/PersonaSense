@@ -4,6 +4,7 @@ import Home from "./pages/Home";
 import PersonalityTypes from "./pages/PersonalityTypes";
 import PersonalityDetail from "./pages/PersonalityDetail";
 import Test from "./pages/Test";
+import UserInfo from "./pages/UserInfo";
 import Result from "./pages/Result";
 
 export default function App() {
@@ -16,6 +17,7 @@ export default function App() {
           <Route path="/personality-types" element={<PersonalityTypes />} />
           <Route path="/personality/:id" element={<PersonalityDetail />} />
           <Route path="/test" element={<Test />} />
+          <Route path="/userinfo" element={<UserInfo />} />
           <Route path="/result" element={<Result />} />
         </Routes>
       </main>

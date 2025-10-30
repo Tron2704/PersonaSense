@@ -45,7 +45,7 @@ export default function Test() {
     setAnswers({ ...answers, yesno: updated });
   };
 
-  // Navigation Logic
+  // Navigation logic
   const handleNext = () => {
     if (step === "likert") {
       if (currentIndex < likertQuestions.length - 1) {
@@ -58,7 +58,7 @@ export default function Test() {
       if (currentIndex < yesNoQuestions.length - 1) {
         setCurrentIndex(currentIndex + 1);
       } else {
-        // All questions completed → analyze result
+        // All questions done → analyze results
         analyzeResults();
       }
     }
@@ -92,33 +92,31 @@ export default function Test() {
     });
 
     // Determine personality type
-    let personalityType = "";
+    let type = "";
     let description = "";
     let traits = [];
 
     if (score >= 4) {
-      personalityType = "The Extrovert";
+      type = "The Extrovert";
       description =
         "You are outgoing, energetic, and thrive in social situations.";
       traits = ["Confident", "Sociable", "Expressive", "Adventurous"];
     } else if (score >= 0) {
-      personalityType = "The Ambivert";
+      type = "The Ambivert";
       description =
         "You balance social interaction with personal reflection and independence.";
       traits = ["Adaptable", "Balanced", "Thoughtful", "Friendly"];
     } else {
-      personalityType = "The Introvert";
+      type = "The Introvert";
       description =
         "You are introspective, reserved, and recharge best in calm environments.";
       traits = ["Reflective", "Calm", "Analytical", "Independent"];
     }
 
-    // Navigate to Result page with data
-    navigate("/result", {
-      state: {
-        resultData: { personalityType, description, traits },
-      },
-    });
+    const resultData = { type, description, traits };
+
+    // ✅ Navigate to UserInfo (not result) first
+    navigate("/userinfo", { state: { resultData } });
   };
 
   return (
@@ -151,8 +149,7 @@ export default function Test() {
           onPrevious={handlePrevious}
           disablePrevious={step === "likert" && currentIndex === 0}
           disableNext={
-            (step === "likert" &&
-              answers.likert[currentIndex] === null) ||
+            (step === "likert" && answers.likert[currentIndex] === null) ||
             (step === "yesno" && answers.yesno[currentIndex] === null)
           }
         />
